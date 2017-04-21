@@ -34,7 +34,75 @@ class DraggableCard extends Component {
       startPosition: { x: 0, y: 0 }
     })
   }
-  
+
+	forceUp () {
+		const { x, y } = this.props.containerSize
+		const card = ReactDOM.findDOMNode(this)
+
+		const initialPosition = {
+			x: Math.round((x - card.offsetWidth) / 2),
+			y: 0
+		}
+
+		this.setState({
+			x: initialPosition.x,
+			y: initialPosition.y,
+			initialPosition: initialPosition,
+			startPosition: { x: 0, y: 0 }
+		})
+	}
+
+	forceBottom() {
+		const { x, y } = this.props.containerSize
+		const card = ReactDOM.findDOMNode(this)
+
+		const initialPosition = {
+			x: Math.round((x - card.offsetWidth) / 2),
+			y: Math.round((y - card.offsetWidth))
+		}
+
+		this.setState({
+			x: initialPosition.x,
+			y: initialPosition.y,
+			initialPosition: initialPosition,
+			startPosition: { x: 0, y: 0 }
+		})
+	}
+
+	forceLeft() {
+		const { x, y } = this.props.containerSize
+		const card = ReactDOM.findDOMNode(this)
+
+		const initialPosition = {
+			x: 0,
+			y: Math.round((y - card.offsetWidth) / 2)
+		}
+
+		this.setState({
+			x: initialPosition.x,
+			y: initialPosition.y,
+			initialPosition: initialPosition,
+			startPosition: { x: 0, y: 0 }
+		})
+	}
+
+	forceRight() {
+		const { x, y } = this.props.containerSize
+		const card = ReactDOM.findDOMNode(this)
+
+		const initialPosition = {
+			x: Math.round((x - card.offsetWidth)),
+			y: Math.round((y - card.offsetWidth) / 2)
+		}
+
+		this.setState({
+			x: initialPosition.x,
+			y: initialPosition.y,
+			initialPosition: initialPosition,
+			startPosition: { x: 0, y: 0 }
+		})
+	}
+
   panstart () {
     const { x, y } = this.state
     this.setState({
@@ -94,7 +162,7 @@ class DraggableCard extends Component {
   componentDidMount () {
     this.hammer = new Hammer.Manager(ReactDOM.findDOMNode(this))
     this.hammer.add(new Hammer.Pan({ threshold: 2 }))
-    
+
     this.hammer.on('panstart panend pancancel panmove', this.handlePan)
     this.hammer.on('swipestart swipeend swipecancel swipemove', this.handleSwipe)
 
