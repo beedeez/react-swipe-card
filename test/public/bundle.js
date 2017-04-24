@@ -21861,13 +21861,19 @@
 
 		_createClass(Example, [{
 			key: 'handleEnd',
-			value: function handleEnd() {}
+			value: function handleEnd() {
+				console.log("End");
+			}
 		}, {
 			key: 'handleTop',
-			value: function handleTop() {}
+			value: function handleTop() {
+				console.log("Top");
+			}
 		}, {
 			key: 'handleBottom',
-			value: function handleBottom() {}
+			value: function handleBottom() {
+				console.log("Bottom");
+			}
 		}, {
 			key: 'forceUp',
 			value: function forceUp() {
@@ -22075,7 +22081,6 @@
 	  }, {
 	    key: 'forceUp',
 	    value: function forceUp() {
-	      debugger;
 	      this.refs["card-" + this.state.index].forceUp();
 	    }
 	  }, {
@@ -22134,6 +22139,7 @@
 	        if (index > i) return memo;
 	        var props = _extends({
 	          key: i,
+	          ref: "card-" + i,
 	          containerSize: containerSize,
 	          index: children.length - index
 	        }, _utils.DIRECTIONS.reduce(function (m, d) {
@@ -22143,13 +22149,9 @@
 	        }, {}), {
 	          active: index === i
 	        });
-	        var Element = (0, _react.cloneElement)(c, props);
-	        var Component = function Component() {
-	          return Element;
-	        };
-	        return [Element].concat(_toConsumableArray(memo));
-	      }, []);
 
+	        return [(0, _react.cloneElement)(c, props)].concat(_toConsumableArray(memo));
+	      }, []);
 	      return _react2.default.createElement('div', { className: className }, _utils.DIRECTIONS.map(function (d) {
 	        return _react2.default.createElement('div', { key: d, className: (_this3.state['alert' + d] ? 'alert-visible' : '') + ' alert-' + d.toLowerCase() + ' alert' }, _this3.props['alert' + d]);
 	      }), _react2.default.createElement('div', { id: 'cards' }, _cards));
@@ -22187,9 +22189,31 @@
 
 	'use strict';
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
+
+	var _extends = Object.assign || function (target) {
+		for (var i = 1; i < arguments.length; i++) {
+			var source = arguments[i];for (var key in source) {
+				if (Object.prototype.hasOwnProperty.call(source, key)) {
+					target[key] = source[key];
+				}
+			}
+		}return target;
+	};
+
+	var _createClass = function () {
+		function defineProperties(target, props) {
+			for (var i = 0; i < props.length; i++) {
+				var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+			}
+		}return function (Constructor, protoProps, staticProps) {
+			if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+		};
+	}();
 
 	var _react = __webpack_require__(1);
 
@@ -22204,23 +22228,66 @@
 	var _DraggableCard2 = _interopRequireDefault(_DraggableCard);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
+		return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	function _objectWithoutProperties(obj, keys) {
-	  var target = {};for (var i in obj) {
-	    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
-	  }return target;
+	function _classCallCheck(instance, Constructor) {
+		if (!(instance instanceof Constructor)) {
+			throw new TypeError("Cannot call a class as a function");
+		}
 	}
 
-	var Card = function Card(_ref) {
-	  var _ref$active = _ref.active,
-	      active = _ref$active === undefined ? false : _ref$active,
-	      props = _objectWithoutProperties(_ref, ['active']);
+	function _possibleConstructorReturn(self, call) {
+		if (!self) {
+			throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+		}return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
 
-	  var component = active ? _DraggableCard2.default : _SimpleCard2.default;
-	  return (0, _react.createElement)(component, props);
-	};
+	function _inherits(subClass, superClass) {
+		if (typeof superClass !== "function" && superClass !== null) {
+			throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+		}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+
+	var Card = function (_Component) {
+		_inherits(Card, _Component);
+
+		function Card() {
+			_classCallCheck(this, Card);
+
+			return _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).apply(this, arguments));
+		}
+
+		_createClass(Card, [{
+			key: 'forceUp',
+			value: function forceUp() {
+				this.refs.card.forceUp();
+			}
+		}, {
+			key: 'forceBottom',
+			value: function forceBottom() {
+				this.refs.card.forceBottom();
+			}
+		}, {
+			key: 'forceLeft',
+			value: function forceLeft() {
+				this.refs.card.forceLeft();
+			}
+		}, {
+			key: 'forceRight',
+			value: function forceRight() {
+				this.refs.card.forceRight();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var Card = this.props.active ? _DraggableCard2.default : _SimpleCard2.default;
+				return _react2.default.createElement(Card, _extends({}, this.props, { ref: 'card' }));
+			}
+		}]);
+
+		return Card;
+	}(_react.Component);
 
 	exports.default = Card;
 
@@ -22469,7 +22536,7 @@
 
 	      var initialPosition = {
 	        x: Math.round((x - card.offsetWidth) / 2),
-	        y: 0
+	        y: -card.offsetHeight
 	      };
 
 	      this.setState({
@@ -22477,7 +22544,7 @@
 	        y: initialPosition.y,
 	        initialPosition: initialPosition,
 	        startPosition: { x: 0, y: 0 }
-	      });
+	      }, this.panend);
 	    }
 	  }, {
 	    key: 'forceBottom',
@@ -22490,7 +22557,7 @@
 
 	      var initialPosition = {
 	        x: Math.round((x - card.offsetWidth) / 2),
-	        y: Math.round(y - card.offsetWidth)
+	        y: Math.round(y)
 	      };
 
 	      this.setState({
@@ -22498,7 +22565,7 @@
 	        y: initialPosition.y,
 	        initialPosition: initialPosition,
 	        startPosition: { x: 0, y: 0 }
-	      });
+	      }, this.panend);
 	    }
 	  }, {
 	    key: 'forceLeft',
@@ -22510,7 +22577,7 @@
 	      var card = _reactDom2.default.findDOMNode(this);
 
 	      var initialPosition = {
-	        x: 0,
+	        x: Math.round(-card.offsetWidth),
 	        y: Math.round((y - card.offsetWidth) / 2)
 	      };
 
@@ -22531,7 +22598,7 @@
 	      var card = _reactDom2.default.findDOMNode(this);
 
 	      var initialPosition = {
-	        x: Math.round(x - card.offsetWidth),
+	        x: Math.round(x),
 	        y: Math.round((y - card.offsetWidth) / 2)
 	      };
 

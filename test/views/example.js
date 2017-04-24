@@ -14,13 +14,13 @@ class Example extends Component {
 		};
 	}
 	handleEnd() {
-
+		console.log("End")
 	}
 	handleTop() {
-
+		console.log("Top")
 	}
 	handleBottom() {
-
+		console.log("Bottom")
 	}
 	forceUp() {
 		this.refs.cards.forceUp();

@@ -29,7 +29,6 @@ class SwipeCards extends Component {
   }
 
 	forceUp() {
-		debugger;
 		this.refs["card-"+this.state.index].forceUp();
 	}
 
@@ -71,17 +70,16 @@ class SwipeCards extends Component {
       if (index > i) return memo
       const props = {
         key: i,
+				ref: "card-"+i,
         containerSize,
         index: children.length - index,
         ...DIRECTIONS.reduce((m, d) =>
           ({ ...m, [`onOutScreen${d}`]: () => this.removeCard(d) }), {}),
         active: index === i
       }
-			const Element = cloneElement(c, props);
-			const Component = () => Element;
-      return [ Element, ...memo ];
-    }, [])
 
+      return [ cloneElement(c, props), ...memo ];
+    }, [])
     return (
       <div className={className}>
         {DIRECTIONS.map(d =>

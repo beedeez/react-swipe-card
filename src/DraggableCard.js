@@ -41,7 +41,7 @@ class DraggableCard extends Component {
 
 		const initialPosition = {
 			x: Math.round((x - card.offsetWidth) / 2),
-			y: 0
+			y: (- card.offsetHeight)
 		}
 
 		this.setState({
@@ -49,7 +49,7 @@ class DraggableCard extends Component {
 			y: initialPosition.y,
 			initialPosition: initialPosition,
 			startPosition: { x: 0, y: 0 }
-		})
+		}, this.panend)
 	}
 
 	forceBottom() {
@@ -58,7 +58,7 @@ class DraggableCard extends Component {
 
 		const initialPosition = {
 			x: Math.round((x - card.offsetWidth) / 2),
-			y: Math.round((y - card.offsetWidth))
+			y: Math.round(y)
 		}
 
 		this.setState({
@@ -66,7 +66,7 @@ class DraggableCard extends Component {
 			y: initialPosition.y,
 			initialPosition: initialPosition,
 			startPosition: { x: 0, y: 0 }
-		})
+		}, this.panend)
 	}
 
 	forceLeft() {
@@ -74,7 +74,7 @@ class DraggableCard extends Component {
 		const card = ReactDOM.findDOMNode(this)
 
 		const initialPosition = {
-			x: 0,
+			x: Math.round(-card.offsetWidth),
 			y: Math.round((y - card.offsetWidth) / 2)
 		}
 
@@ -91,7 +91,7 @@ class DraggableCard extends Component {
 		const card = ReactDOM.findDOMNode(this)
 
 		const initialPosition = {
-			x: Math.round((x - card.offsetWidth)),
+			x: Math.round(x),
 			y: Math.round((y - card.offsetWidth) / 2)
 		}
 
