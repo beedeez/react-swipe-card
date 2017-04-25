@@ -63,9 +63,8 @@ class SwipeCards extends Component {
 
   render () {
     const { index, containerSize } = this.state
-    const { children, className, onSwipeTop, onSwipeBottom } = this.props
+    const { children, className, onSwipeTop, onSwipeBottom, style } = this.props
     if (!containerSize.x || !containerSize.y) return  <div className={className} />
-
     const _cards = children.reduce((memo, c, i) => {
       if (index > i) return memo
       const props = {
@@ -80,8 +79,9 @@ class SwipeCards extends Component {
 
       return [ cloneElement(c, props), ...memo ];
     }, [])
+
     return (
-      <div className={className}>
+      <div className={className} style={style}>
         {DIRECTIONS.map(d =>
           <div key={d} className={`${this.state[`alert${d}`] ? 'alert-visible': ''} alert-${d.toLowerCase()} alert`}>
             {this.props[`alert${d}`]}

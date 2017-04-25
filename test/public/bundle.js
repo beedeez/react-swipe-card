@@ -22131,10 +22131,10 @@
 	          children = _props2.children,
 	          className = _props2.className,
 	          onSwipeTop = _props2.onSwipeTop,
-	          onSwipeBottom = _props2.onSwipeBottom;
+	          onSwipeBottom = _props2.onSwipeBottom,
+	          style = _props2.style;
 
 	      if (!containerSize.x || !containerSize.y) return _react2.default.createElement('div', { className: className });
-
 	      var _cards = children.reduce(function (memo, c, i) {
 	        if (index > i) return memo;
 	        var props = _extends({
@@ -22152,7 +22152,8 @@
 
 	        return [(0, _react.cloneElement)(c, props)].concat(_toConsumableArray(memo));
 	      }, []);
-	      return _react2.default.createElement('div', { className: className }, _utils.DIRECTIONS.map(function (d) {
+
+	      return _react2.default.createElement('div', { className: className, style: style }, _utils.DIRECTIONS.map(function (d) {
 	        return _react2.default.createElement('div', { key: d, className: (_this3.state['alert' + d] ? 'alert-visible' : '') + ' alert-' + d.toLowerCase() + ' alert' }, _this3.props['alert' + d]);
 	      }), _react2.default.createElement('div', { id: 'cards' }, _cards));
 	    }
@@ -22398,6 +22399,7 @@
 	      var _props$className = this.props.className,
 	          className = _props$className === undefined ? 'inactive' : _props$className;
 
+	      className += ' ' + (this.props.className || "");
 	      var style = _extends({}, (0, _utils.translate3d)(x, y), {
 	        zIndex: this.props.index
 	      }, this.props.style);
@@ -22720,7 +22722,7 @@
 	          pristine = _state2.pristine;
 
 	      var style = (0, _utils.translate3d)(x, y);
-	      return _react2.default.createElement(_SimpleCard2.default, _extends({}, this.props, { style: style, className: animation ? 'animate' : pristine ? 'inactive' : '' }));
+	      return _react2.default.createElement(_SimpleCard2.default, _extends({}, this.props, { style: style, className: (animation ? 'animate ' : pristine ? 'inactive ' : '') + (this.props.className || "") }));
 	    }
 	  }]);
 

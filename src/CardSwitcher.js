@@ -4,7 +4,7 @@ import SimpleCard from './SimpleCard'
 import DraggableCard from './DraggableCard'
 
 
-class Card extends Component {
+export default class Card extends Component {
 	forceUp() {
 		this.refs.card.forceUp();
 	}
@@ -26,5 +26,3 @@ class Card extends Component {
 		return <Card {...this.props} ref="card"/>;
 	}
 }
-
-export default Card;
