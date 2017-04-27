@@ -22134,7 +22134,9 @@
 	          onSwipeBottom = _props2.onSwipeBottom,
 	          style = _props2.style;
 
-	      if (!containerSize.x || !containerSize.y) return _react2.default.createElement('div', { className: className });
+	      if (!containerSize.x || !containerSize.y) {
+	        return _react2.default.createElement('div', { className: className, style: style });
+	      }
 	      var _cards = children.reduce(function (memo, c, i) {
 	        if (index > i) return memo;
 	        var props = _extends({
@@ -22514,7 +22516,6 @@
 	          y = _props$containerSize.y;
 
 	      var card = _reactDom2.default.findDOMNode(this);
-
 	      var initialPosition = {
 	        x: Math.round((x - card.offsetWidth) / 2),
 	        y: Math.round((y - card.offsetHeight) / 2)
@@ -22703,6 +22704,13 @@
 	      window.addEventListener('resize', this.resetPosition);
 	    }
 	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nP) {
+	      if (this.props.containerSize != nP.containerSize) {
+	        this.resetPosition();
+	      }
+	    }
+	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      if (this.hammer) {
@@ -22722,7 +22730,7 @@
 	          pristine = _state2.pristine;
 
 	      var style = (0, _utils.translate3d)(x, y);
-	      return _react2.default.createElement(_SimpleCard2.default, _extends({}, this.props, { style: style, className: (animation ? 'animate ' : pristine ? 'inactive ' : '') + (this.props.className || "") }));
+	      return _react2.default.createElement(_SimpleCard2.default, _extends({}, this.props, { style: _extends({}, style, this.props.style), className: (animation ? 'animate ' : pristine ? 'inactive ' : '') + (this.props.className || "") }));
 	    }
 	  }]);
 

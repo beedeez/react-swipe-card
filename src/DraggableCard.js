@@ -21,7 +21,6 @@ class DraggableCard extends Component {
   resetPosition () {
     const { x, y } = this.props.containerSize
     const card = ReactDOM.findDOMNode(this)
-
     const initialPosition = {
       x: Math.round((x - card.offsetWidth) / 2),
       y: Math.round((y - card.offsetHeight) / 2)
@@ -169,6 +168,11 @@ class DraggableCard extends Component {
     this.resetPosition()
     window.addEventListener('resize', this.resetPosition)
   }
+	componentWillReceiveProps(nP) {
+		if (this.props.containerSize != nP.containerSize) {
+			this.resetPosition()
+		}
+	}
   componentWillUnmount () {
     if (this.hammer) {
       this.hammer.stop()
@@ -180,7 +184,7 @@ class DraggableCard extends Component {
   render () {
     const { x, y, animation, pristine } = this.state
     const style = translate3d(x, y)
-    return <SimpleCard {...this.props} style={style} className={(animation ? 'animate ' : pristine ? 'inactive ' : '') + (this.props.className || "") } />
+    return <SimpleCard {...this.props} style={{...style, ...this.props.style}} className={(animation ? 'animate ' : pristine ? 'inactive ' : '') + (this.props.className || "") } />
   }
 }
 
